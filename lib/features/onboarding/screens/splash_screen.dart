@@ -1,14 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:sam_sir_app/core/theme/app_colors.dart';
-import 'package:sam_sir_app/features/authentication/screens/login_screen.dart';
 
-/// A reusable, animated splash screen.
-///
-/// - `nextRouteName`: optional named route to navigate to after [duration].
-/// - `duration`: how long to wait before navigating (default 3s).
-/// - `assetName`: optional asset path for your logo (falls back to `FlutterLogo`).
 class SplashScreen extends StatefulWidget {
   final String? nextRouteName;
   final Duration duration;

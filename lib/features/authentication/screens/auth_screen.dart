@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:sam_sir_app/core/constants/navigation_helper_methods.dart';
 import 'package:sam_sir_app/core/widgets/auth_button.dart';
+import 'package:sam_sir_app/features/authentication/screens/input_phone_number_screen.dart';
+import 'package:sam_sir_app/features/authentication/screens/verify_phone_number_screen.dart';
 import 'package:sam_sir_app/features/home/screens/home_screen.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -43,8 +45,7 @@ class _AuthScreenState extends State<AuthScreen> {
                 gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
-                  colors: [Colors.transparent, Colors.indigoAccent,
-                  ],
+                  colors: [Colors.transparent, Colors.indigoAccent],
                 ),
               ),
             ),
@@ -54,7 +55,7 @@ class _AuthScreenState extends State<AuthScreen> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: const EdgeInsets.all(25.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
@@ -76,11 +77,13 @@ class _AuthScreenState extends State<AuthScreen> {
 
                   // Reusable Buttons
                   AuthButton(
-                    text: "Continue as Guest",
-                    icon: null,
+                    text: "Continue with Phone Number",
+                    icon: Icons.phone_android_outlined,
                     color: Colors.white10,
                     textColor: Colors.white,
-                    onPressed: () {},
+                    onPressed: () {
+                      navigateTo(context, const InputPhoneNumberScreen());
+                    },
                   ),
                   const SizedBox(height: 12),
 
