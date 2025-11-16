@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sam_sir_app/core/constants/navigation_helper_methods.dart';
-import 'package:sam_sir_app/features/authentication/screens/auth_screen.dart';
-import 'package:sam_sir_app/features/onboarding/models/onboarding_model.dart';
+import 'package:believersHub/core/constants/navigation_helper_methods.dart';
+import 'package:believersHub/features/authentication/screens/auth_screen.dart';
+import 'package:believersHub/features/onboarding/models/onboarding_model.dart';
 
 import 'onboarding_page.dart';
 

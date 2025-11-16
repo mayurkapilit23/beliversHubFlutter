@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sam_sir_app/core/theme/app_colors.dart';
-import 'package:sam_sir_app/core/widgets/custom_button.dart';
-import 'package:sam_sir_app/core/widgets/custom_text_field.dart';
+import 'package:believersHub/core/theme/app_colors.dart';
+import 'package:believersHub/core/widgets/custom_button.dart';
+import 'package:believersHub/core/widgets/custom_text_field.dart';
 
 class LoginScreen extends StatelessWidget {
   LoginScreen({super.key});

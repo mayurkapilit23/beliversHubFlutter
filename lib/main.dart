@@ -1,10 +1,19 @@
+import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart' show GlobalLoadingBloc;
+import 'package:believersHub/repositories/auth_repository.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:sam_sir_app/features/authentication/screens/auth_screen.dart';
-import 'package:sam_sir_app/features/home/screens/home_screen.dart';
-import 'package:sam_sir_app/features/onboarding/screens/onboarding_screen.dart';
-import 'package:sam_sir_app/features/onboarding/screens/splash_screen.dart';
+import 'package:believersHub/features/authentication/screens/auth_screen.dart';
+import 'package:believersHub/features/home/screens/home_screen.dart';
+import 'package:believersHub/features/onboarding/screens/onboarding_screen.dart';
+import 'package:believersHub/features/onboarding/screens/splash_screen.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'blocs/auth/auth_bloc.dart';
+import 'firebase_options.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 
@@ -13,20 +22,24 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      routes: {
-        '/login': (c) => AuthScreen(),
-        '/onboarding': (c) => OnboardingScreen(),
-        '/home': (c) => HomeScreen(),
-        // '/onboarding': (c) => const OnboardingPage(),
-      },
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(fontFamily: 'poppins'),
-      home: const SplashScreen(
-        assetName: 'assets/png/blueberry.png',
-        nextRouteName: '/onboarding',
-        duration: Duration(seconds: 1),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => AuthBloc(authRepository: AuthRepository())),
+        BlocProvider(create: (_) => GlobalLoadingBloc()),
+      ],
+      child: MaterialApp(
+        routes: {
+          '/login': (c) => AuthScreen(),
+          '/onboarding': (c) => OnboardingScreen(),
+          '/home': (c) => HomeScreen(),
+          // '/onboarding': (c) => const OnboardingPage(),
+        },
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(fontFamily: 'poppins'),
+        home: const SplashScreen(),
       ),
     );
   }
 }
+
+

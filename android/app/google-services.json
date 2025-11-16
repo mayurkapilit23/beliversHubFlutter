@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "1022693944328",
+    "project_id": "belivers-hub-gospel",
+    "storage_bucket": "belivers-hub-gospel.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1022693944328:android:59a627d4d6a0761b9635bd",
+        "android_client_info": {
+          "package_name": "com.belivershub.gospel.in"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1022693944328-k85m14btr636k3k4mfo3hedrvjk7env3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.belivershub.gospel.in",
+            "certificate_hash": "2c03ed0acf301404cf598c28624e46aa8585cc9c"
+          }
+        },
+        {
+          "client_id": "1022693944328-lhaeosc3jsmo6fd4qsalidrdq6hkm6mh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDEHx58sYc60bfzntNeKy9jbiQsZIzeM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1022693944328-lhaeosc3jsmo6fd4qsalidrdq6hkm6mh.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1022693944328-8vkeptve8q5iff39rf25kpm7ti4vl6jj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.belivershub.in.beliversHub"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

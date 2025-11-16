@@ -1,7 +1,10 @@
+import 'package:believersHub/blocs/auth/auth_bloc.dart' show AuthBloc;
+import 'package:believersHub/blocs/auth/auth_event.dart';
 import 'package:flutter/material.dart';
-import 'package:sam_sir_app/core/theme/app_colors.dart';
-import 'package:sam_sir_app/core/widgets/post_card.dart';
-import 'package:sam_sir_app/core/widgets/reel_card.dart';
+import 'package:believersHub/core/theme/app_colors.dart';
+import 'package:believersHub/core/widgets/post_card.dart';
+import 'package:believersHub/core/widgets/reel_card.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/widgets/story_circle.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    _preloadImages();
+    // _preloadImages();
   }
 
   Future<void> _preloadImages() async {
@@ -67,8 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             // Title Row
             Row(
-              children: const [
-                Text(
+              children: [
+                const Text(
                   "Reels",
                   style: TextStyle(
                     color: Colors.black,
@@ -76,11 +79,13 @@ class _HomeScreenState extends State<HomeScreen> {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Spacer(),
-                Icon(Icons.favorite_border, color: Colors.black),
-                SizedBox(width: 16),
-                Icon(Icons.notifications_none, color: Colors.black),
-                SizedBox(width: 16),
+                const Spacer(),
+                IconButton( color: Colors.black,onPressed: (){
+                  context.read<AuthBloc>().add(AuthLogoutRequested());
+                }, icon: const Icon(Icons.favorite_border),),
+                const SizedBox(width: 16),
+                const Icon(Icons.notifications_none, color: Colors.black),
+                const SizedBox(width: 16),
               ],
             ),
 
