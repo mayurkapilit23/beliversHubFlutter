@@ -26,3 +26,14 @@ class AuthLoggedInAutomatically extends AuthEvent {
 }
 
 class AuthLoggedOut extends AuthEvent {}
+class SendOtpRequested extends AuthEvent {
+  final String phoneNumber;
+  SendOtpRequested(this.phoneNumber);
+}
+
+class VerifyOtpRequested extends AuthEvent {
+  final String otp;
+  final String verificationId;
+
+  VerifyOtpRequested({required this.otp, required this.verificationId});
+}

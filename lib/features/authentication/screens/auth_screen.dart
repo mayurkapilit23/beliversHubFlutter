@@ -1,16 +1,15 @@
 import 'package:believersHub/blocs/auth/auth_bloc.dart' show AuthBloc;
-import 'package:believersHub/blocs/auth/auth_event.dart'
-    show AuthLoginRequested;
+import 'package:believersHub/blocs/auth/auth_event.dart';
 import 'package:believersHub/blocs/auth/auth_state.dart';
 import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart' show GlobalLoadingBloc;
 import 'package:believersHub/blocs/global_loading/global_loading_event.dart';
-import 'package:believersHub/features/authentication/AuthService.dart'
-    show AuthService;
-import 'package:believersHub/utils/app_snackbar.dart' show AppSnackbar;
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:believersHub/core/constants/navigation_helper_methods.dart';
 import 'package:believersHub/core/widgets/auth_button.dart';
+import 'package:believersHub/features/authentication/AuthService.dart';
+import 'package:believersHub/features/authentication/screens/input_phone_number_screen.dart';
 import 'package:believersHub/features/home/screens/home_screen.dart';
+import 'package:believersHub/utils/app_snackbar.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AuthScreen extends StatefulWidget {
@@ -29,6 +28,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
   Future<void> _preloadImages() async {
     await precacheImage(const AssetImage("assets/png/google.png"), context);
+    // ignore: use_build_context_synchronously
     await precacheImage(const AssetImage("assets/png/facebook.png"), context);
   }
 
@@ -94,24 +94,17 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     const SizedBox(height: 20),
 
-                    // Reusable Buttons
-                    AuthButton(
-                      text: "Continue as Guest",
-                      icon: null,
-                      color: Colors.white10,
-                      textColor: Colors.white,
-                      onPressed: () {},
-                    ),
-                    const SizedBox(height: 12),
-
-                    AuthButton(
-                      text: "Continue with Email",
-                      icon: Icons.email_outlined,
-                      color: Colors.white10,
-                      textColor: Colors.white,
-                      onPressed: () {},
-                    ),
-                    const SizedBox(height: 12),
+                  // Reusable Buttons
+                  AuthButton(
+                    text: "Continue with Phone Number",
+                    icon: Icons.phone_android_outlined,
+                    color: Colors.white10,
+                    textColor: Colors.white,
+                    onPressed: () {
+                      navigateTo(context, const InputPhoneNumberScreen());
+                    },
+                  ),
+                  const SizedBox(height: 12),
 
                     AuthButton(
                       text: "Continue with Google",
@@ -141,57 +134,14 @@ class _AuthScreenState extends State<AuthScreen> {
                         }
                       },
                     ),
-                    const SizedBox(height: 12),
 
-                    AuthButton(
-                      text: "Continue with Facebook",
-                      customIcon: Image.asset(
-                        'assets/png/facebook.png',
-                        height: 24,
-                      ),
-                      color: Colors.white10,
-                      textColor: Colors.white,
-                      onPressed: () async{
-                        final user = await AuthService.signInWithFacebook();
-                        if (user != null) {
-                          final idToken = await user.user!.getIdToken();
-                          if (!mounted) return;
-                          if (idToken != null) {
-                            context.read<GlobalLoadingBloc>().add(ShowLoader());
-                            context.read<AuthBloc>().add(
-                              AuthLoginRequested(idToken: idToken),
-                            );
-                          } else {
-                            AppSnackbar.showError(
-                              context,
-                              "Error unable to Sign in",
-                            );
-                          }
-                          context.read<GlobalLoadingBloc>().add(HideLoader());
-                        }
-                      },
-                    ),
-                    const SizedBox(height: 10),
-
-                    const Text('or', style: TextStyle(color: Colors.white70)),
-                    const SizedBox(height: 10),
-
-                    AuthButton(
-                      text: "Continue with Apple",
-                      icon: Icons.apple,
-                      color: Colors.white,
-                      textColor: Colors.black,
-                      onPressed: () {},
-                    ),
-
-                    const SizedBox(height: 40),
-                  ],
-                ),
+                  const SizedBox(height: 40),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
-    );
+    ));
   }
 }

@@ -27,3 +27,21 @@ class AuthState extends Equatable {
 class AuthInitial extends AuthState {
   const AuthInitial() : super(authenticated: false);
 }
+class OtpSent extends AuthState {
+  final String verificationId;
+  const OtpSent(this.verificationId);
+}
+
+class PhoneAuthLoading extends AuthState {
+  const PhoneAuthLoading();
+}
+
+class PhoneAuthError extends AuthState {
+  final String error;
+  const PhoneAuthError(this.error);
+}
+
+class PhoneAuthSuccess extends AuthState {
+  const PhoneAuthSuccess();
+}
+
