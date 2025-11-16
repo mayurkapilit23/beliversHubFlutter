@@ -1,5 +1,7 @@
-import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart' show GlobalLoadingBloc;
+import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart'
+    show GlobalLoadingBloc;
 import 'package:believersHub/repositories/auth_repository.dart';
+import 'package:believersHub/utils/global_loader.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:believersHub/features/authentication/screens/auth_screen.dart';
@@ -8,6 +10,7 @@ import 'package:believersHub/features/onboarding/screens/onboarding_screen.dart'
 import 'package:believersHub/features/onboarding/screens/splash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'blocs/auth/auth_bloc.dart';
+import 'blocs/global_loading/global_loading_state.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -36,10 +39,17 @@ class MyApp extends StatelessWidget {
         },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(fontFamily: 'poppins'),
-        home: const SplashScreen(),
+        home: Stack(
+          children: [
+            BlocBuilder<GlobalLoadingBloc, GlobalLoadingState>(
+              builder: (context, state) {
+                return GlobalLoader(show: state.isLoading);
+              },
+            ),
+            const SplashScreen(),
+          ],
+        ),
       ),
     );
   }
 }
-
-

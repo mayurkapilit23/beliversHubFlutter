@@ -59,6 +59,11 @@ class _InputPhoneNumberScreenState extends State<InputPhoneNumberScreen> {
                 const SizedBox(height: 40),
 
                 TextField(
+                  onChanged: (sfs){
+                    setState(() {
+
+                    });
+                  },
                   controller: controller,
                   autofocus: true,
                   keyboardType: TextInputType.phone,
@@ -90,8 +95,9 @@ class _InputPhoneNumberScreenState extends State<InputPhoneNumberScreen> {
 
                 /// Verify Button
                 GestureDetector(
+
                   onTap:controller.text.length==10? () async {
-                    context.read<GlobalLoadingBloc>().add(HideLoader());
+                    context.read<GlobalLoadingBloc>().add(ShowLoader());
                     final user = await AuthService.sendOTP(controller.text);
                     context.read<GlobalLoadingBloc>().add(HideLoader());
                     if (user) {

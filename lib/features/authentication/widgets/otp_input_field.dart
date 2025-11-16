@@ -14,7 +14,7 @@ class OtpInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: List.generate(4, (i) {
+      children: List.generate(6, (i) {
         return SizedBox(
           width: 48,
           height: 55,

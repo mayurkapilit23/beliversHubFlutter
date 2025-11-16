@@ -14,6 +14,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1022693944328-02sf9bacql47l4a1ig27ms1p7jhjc8ub.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.belivershub.gospel.in",
+            "certificate_hash": "42617fec514e584761586f81e19cb0d7c2762a02"
+          }
+        },
+        {
           "client_id": "1022693944328-k85m14btr636k3k4mfo3hedrvjk7env3.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
