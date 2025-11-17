@@ -9,6 +9,9 @@ import 'package:believersHub/core/widgets/auth_button.dart';
 import 'package:believersHub/features/authentication/AuthService.dart';
 import 'package:believersHub/features/authentication/screens/input_phone_number_screen.dart';
 import 'package:believersHub/features/home/screens/home_screen.dart';
+import 'package:believersHub/features/theme/bloc/theme_bloc.dart';
+import 'package:believersHub/features/theme/bloc/theme_event.dart';
+import 'package:believersHub/features/theme/bloc/theme_state.dart';
 import 'package:believersHub/utils/app_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -138,6 +141,23 @@ class _AuthScreenState extends State<AuthScreen> {
                       },
                     ),
 
+                    const SizedBox(height: 20),
+                    BlocBuilder<ThemeBloc, ThemeState>(
+                      builder: (context, state) {
+                        final isDark =
+                            state.themeMode == ThemeMode.dark ||
+                            (state.themeMode == ThemeMode.system &&
+                                MediaQuery.of(context).platformBrightness ==
+                                    Brightness.dark);
+
+                        return Switch(
+                          value: isDark,
+                          onChanged: (value) {
+                            context.read<ThemeBloc>().add(ToggleThemeEvent());
+                          },
+                        );
+                      },
+                    ),
                     const SizedBox(height: 40),
                   ],
                 ),

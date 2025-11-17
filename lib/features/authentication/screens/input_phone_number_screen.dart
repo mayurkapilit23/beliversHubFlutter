@@ -1,5 +1,4 @@
 import 'package:believersHub/blocs/auth/auth_bloc.dart';
-import 'package:believersHub/blocs/auth/auth_event.dart';
 import 'package:believersHub/blocs/auth/auth_state.dart';
 import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart';
 import 'package:believersHub/blocs/global_loading/global_loading_event.dart';
@@ -20,10 +19,10 @@ class InputPhoneNumberScreen extends StatefulWidget {
 }
 
 class _InputPhoneNumberScreenState extends State<InputPhoneNumberScreen> {
-   TextEditingController controller = TextEditingController();
+  TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc,AuthState>(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (BuildContext context, AuthState state) {
         if (state.authenticated) {
           AppSnackbar.showSuccess(context, "Login successful");
@@ -59,10 +58,8 @@ class _InputPhoneNumberScreenState extends State<InputPhoneNumberScreen> {
                 const SizedBox(height: 40),
 
                 TextField(
-                  onChanged: (sfs){
-                    setState(() {
-
-                    });
+                  onChanged: (sfs) {
+                    setState(() {});
                   },
                   controller: controller,
                   autofocus: true,
@@ -95,22 +92,27 @@ class _InputPhoneNumberScreenState extends State<InputPhoneNumberScreen> {
 
                 /// Verify Button
                 GestureDetector(
-
-                  onTap:controller.text.length==10? () async {
-                    context.read<GlobalLoadingBloc>().add(ShowLoader());
-                    final user = await AuthService.sendOTP(controller.text);
-                    context.read<GlobalLoadingBloc>().add(HideLoader());
-                    if (user) {
-                      navigateTo(context, VerifyPhoneScreen());
-                    }
-                  }:null,
+                  onTap: controller.text.length == 10
+                      ? () async {
+                          context.read<GlobalLoadingBloc>().add(ShowLoader());
+                          final user = await AuthService.sendOTP(
+                            controller.text,
+                          );
+                          context.read<GlobalLoadingBloc>().add(HideLoader());
+                          if (user) {
+                            navigateTo(context, VerifyPhoneScreen());
+                          }
+                        }
+                      : null,
                   child: Container(
                     height: 55,
                     width: double.infinity,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(14),
-                      color:controller.text.length==10? Colors.indigoAccent:Colors.grey,
+                      color: controller.text.length == 10
+                          ? Colors.indigoAccent
+                          : Colors.grey,
                       // gradient: const LinearGradient(
                       //   colors: [Color(0xff4F7DF3), Color(0xff335FE2)],
                       // ),

@@ -3,7 +3,6 @@ import 'package:believersHub/blocs/auth/auth_event.dart';
 import 'package:believersHub/blocs/auth/auth_state.dart';
 import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart';
 import 'package:believersHub/blocs/global_loading/global_loading_event.dart';
-import 'package:believersHub/core/constants/navigation_helper_methods.dart';
 import 'package:believersHub/core/theme/app_colors.dart';
 import 'package:believersHub/features/authentication/AuthService.dart';
 import 'package:believersHub/features/authentication/widgets/otp_input_field.dart';
@@ -39,7 +38,7 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc,AuthState>(
+    return BlocListener<AuthBloc, AuthState>(
       listener: (BuildContext context, state) {
         if (state.authenticated) {
           AppSnackbar.showSuccess(context, "Login successful");
@@ -96,7 +95,7 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
 
                 /// Verify Button
                 GestureDetector(
-                  onTap: () async{
+                  onTap: () async {
                     context.read<GlobalLoadingBloc>().add(ShowLoader());
                     final userCred = await AuthService.verifyOTP(getOtp());
                     if (userCred != null) {
@@ -106,7 +105,6 @@ class _VerifyPhoneScreenState extends State<VerifyPhoneScreen> {
                       );
                       context.read<GlobalLoadingBloc>().add(HideLoader());
                     }
-
                   },
                   child: Container(
                     height: 55,

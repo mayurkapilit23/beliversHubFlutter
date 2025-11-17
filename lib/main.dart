@@ -1,5 +1,9 @@
 import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart'
     show GlobalLoadingBloc;
+import 'package:believersHub/core/theme/app_dark_theme.dart';
+import 'package:believersHub/core/theme/app_light_theme.dart';
+import 'package:believersHub/features/theme/bloc/theme_bloc.dart';
+import 'package:believersHub/features/theme/bloc/theme_state.dart';
 import 'package:believersHub/repositories/auth_repository.dart';
 import 'package:believersHub/utils/global_loader.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -29,26 +33,33 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (_) => AuthBloc(authRepository: AuthRepository())),
         BlocProvider(create: (_) => GlobalLoadingBloc()),
+        BlocProvider(create: (_) => ThemeBloc()),
       ],
-      child: MaterialApp(
-        routes: {
-          '/login': (c) => AuthScreen(),
-          '/onboarding': (c) => OnboardingScreen(),
-          '/home': (c) => HomeScreen(),
-          // '/onboarding': (c) => const OnboardingPage(),
-        },
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'poppins'),
-        home: Stack(
-          children: [
-            BlocBuilder<GlobalLoadingBloc, GlobalLoadingState>(
-              builder: (context, state) {
-                return GlobalLoader(show: state.isLoading);
-              },
+      child: BlocBuilder<ThemeBloc, ThemeState>(
+        builder: (context, state) {
+          return MaterialApp(
+            routes: {
+              '/login': (c) => AuthScreen(),
+              '/onboarding': (c) => OnboardingScreen(),
+              '/home': (c) => HomeScreen(),
+              // '/onboarding': (c) => const OnboardingPage(),
+            },
+            debugShowCheckedModeBanner: false,
+            theme: AppLightTheme.theme,
+            darkTheme: AppDarkTheme.theme,
+            themeMode: state.themeMode, // controlled by bloc
+            home: Stack(
+              children: [
+                BlocBuilder<GlobalLoadingBloc, GlobalLoadingState>(
+                  builder: (context, state) {
+                    return GlobalLoader(show: state.isLoading);
+                  },
+                ),
+                const SplashScreen(),
+              ],
             ),
-            const SplashScreen(),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
