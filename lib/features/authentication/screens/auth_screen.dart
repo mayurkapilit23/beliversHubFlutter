@@ -1,7 +1,8 @@
 import 'package:believersHub/blocs/auth/auth_bloc.dart' show AuthBloc;
 import 'package:believersHub/blocs/auth/auth_event.dart';
 import 'package:believersHub/blocs/auth/auth_state.dart';
-import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart' show GlobalLoadingBloc;
+import 'package:believersHub/blocs/global_loading/global_loading_bloc.dart'
+    show GlobalLoadingBloc;
 import 'package:believersHub/blocs/global_loading/global_loading_event.dart';
 import 'package:believersHub/core/constants/navigation_helper_methods.dart';
 import 'package:believersHub/core/widgets/auth_button.dart';
@@ -36,7 +37,7 @@ class _AuthScreenState extends State<AuthScreen> {
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
       listener: (BuildContext context, state) {
-         if (state.authenticated) {
+        if (state.authenticated) {
           AppSnackbar.showSuccess(context, "Login successful");
           Navigator.pushReplacement(
             context,
@@ -94,17 +95,19 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     const SizedBox(height: 20),
 
-                  // Reusable Buttons
-                  AuthButton(
-                    text: "Continue with Phone Number",
-                    icon: Icons.phone_android_outlined,
-                    color: Colors.white10,
-                    textColor: Colors.white,
-                    onPressed: () {
-                      navigateTo(context, const InputPhoneNumberScreen());
-                    },
-                  ),
-                  const SizedBox(height: 12),
+                    // Reusable Buttons
+                    AuthButton(
+                      text: "Continue with Phone Number",
+                      icon: Icons.phone_android_outlined,
+                      color: Colors.white10,
+                      textColor: Colors.white,
+                      onPressed: () {
+                        navigateTo(context, const InputPhoneNumberScreen());
+                      },
+                      minWidth: 100, // Minimum width
+                      padding: EdgeInsets.symmetric(horizontal: 8),
+                    ),
+                    const SizedBox(height: 12),
 
                     AuthButton(
                       text: "Continue with Google",
@@ -135,13 +138,14 @@ class _AuthScreenState extends State<AuthScreen> {
                       },
                     ),
 
-                  const SizedBox(height: 40),
-                ],
+                    const SizedBox(height: 40),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    ));
+    );
   }
 }
