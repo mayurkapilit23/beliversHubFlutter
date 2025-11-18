@@ -12,3 +12,4 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+/Users/kcs/Documents/MPP/beliversHubFlutter/android/app/google-services.json

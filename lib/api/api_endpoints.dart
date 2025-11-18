@@ -1,5 +1,5 @@
 class ApiEndpoints {
-  static const String baseUrl = "http://192.168.1.39:4000";
+  static const String baseUrl = "http://192.168.15.168:4000";
 
   // Auth
   static const String loginWithFirebase = "/auth/firebase";
