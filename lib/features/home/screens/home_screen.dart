@@ -80,9 +80,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 const Spacer(),
-                IconButton( color: Colors.black,onPressed: (){
-                  context.read<AuthBloc>().add(AuthLogoutRequested());
-                }, icon: const Icon(Icons.favorite_border),),
+                IconButton(
+                  color: Colors.black,
+                  onPressed: () {
+                    context.read<AuthBloc>().add(AuthLogoutRequested());
+                  },
+                  icon: const Icon(Icons.favorite_border),
+                ),
                 const SizedBox(width: 16),
                 const Icon(Icons.notifications_none, color: Colors.black),
                 const SizedBox(width: 16),
