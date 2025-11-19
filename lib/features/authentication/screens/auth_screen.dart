@@ -13,6 +13,7 @@ import 'package:believersHub/features/theme/bloc/theme_bloc.dart';
 import 'package:believersHub/features/theme/bloc/theme_event.dart';
 import 'package:believersHub/features/theme/bloc/theme_state.dart';
 import 'package:believersHub/utils/app_snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,7 +84,8 @@ class _AuthScreenState extends State<AuthScreen> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     const Text(
-                      "Let's Get Started!",
+                      textAlign: TextAlign.center,
+                      "Join The Worlds Biggest Community",
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 26,
@@ -92,9 +94,9 @@ class _AuthScreenState extends State<AuthScreen> {
                     ),
                     const SizedBox(height: 6),
                     const Text(
-                      "Worship, Sermons, Motivation, Testimonies, Youth, Church Events",
+                      'Where two or three gather in my name, there am I with them\n- Matthew 18:20',
                       textAlign: TextAlign.center,
-                      style: TextStyle(color: Colors.white70, fontSize: 14),
+                      style: TextStyle(color: Colors.white70, fontSize: 12),
                     ),
                     const SizedBox(height: 20),
 
@@ -122,6 +124,7 @@ class _AuthScreenState extends State<AuthScreen> {
                       textColor: Colors.white,
                       onPressed: () async {
                         final user = await AuthService.signInWithGoogle();
+                        final dskkd = FirebaseAuth.instance.currentUser;
                         if (user != null) {
                           final idToken = await user.user!.getIdToken();
                           if (!mounted) return;

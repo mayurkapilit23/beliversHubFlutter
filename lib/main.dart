@@ -13,9 +13,11 @@ import 'package:believersHub/features/home/screens/home_screen.dart';
 import 'package:believersHub/features/onboarding/screens/onboarding_screen.dart';
 import 'package:believersHub/features/onboarding/screens/splash_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'LoginScreen.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/global_loading/global_loading_state.dart';
 import 'firebase_options.dart';
+import 'modules/location/bloc/location_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -34,6 +36,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => AuthBloc(authRepository: AuthRepository())),
         BlocProvider(create: (_) => GlobalLoadingBloc()),
         BlocProvider(create: (_) => ThemeBloc()),
+        BlocProvider(create: (_) => LocationBloc()),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {

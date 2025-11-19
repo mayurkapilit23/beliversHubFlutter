@@ -1,10 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:believersHub/blocs/auth/auth_bloc.dart' show AuthBloc;
 import 'package:believersHub/blocs/auth/auth_event.dart';
+import 'package:believersHub/features/NewPostScreen/NewPostScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:believersHub/core/theme/app_colors.dart';
 import 'package:believersHub/core/widgets/post_card.dart';
 import 'package:believersHub/core/widgets/reel_card.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_thumbnail/video_thumbnail.dart';
 import '../../../core/widgets/story_circle.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -15,6 +20,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void initState() {
     super.initState();
@@ -30,11 +37,95 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  Future<void> _pickMedia() async {
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (context) => Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(25)),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: 12),
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[400]!,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            SizedBox(height: 20),
+            ListTile(
+              leading: Icon(Icons.photo_library, color: Colors.pink),
+              title: Text('Choose from Gallery'),
+              onTap: () => _selectFromGallery(context),
+            ),
+            ListTile(
+              leading: Icon(Icons.video_library, color: Colors.purple),
+              title: Text('Choose Video'),
+              onTap: () => _selectVideo(context),
+            ),
+            SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Future<void> _selectFromGallery(BuildContext context) async {
+    final XFile? file = await _picker.pickImage(source: ImageSource.gallery);
+    print('SELECTED FILE $file');
+    if (file != null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              NewPostScreen(filePath: file.path, isVideo: false),
+        ),
+      );
+    }
+  }
+
+  Future<Uint8List?> getVideoThumbnail(String? path) async {
+    final uint8list = await VideoThumbnail.thumbnailData(
+      video: path.toString(),
+      imageFormat: ImageFormat.PNG,
+      maxWidth: 400, // size of thumbnail
+      quality: 75,
+    );
+
+    return uint8list;
+  }
+
+  Future<void> _selectVideo(BuildContext context) async {
+    final XFile? file = await _picker.pickVideo(source: ImageSource.gallery);
+    if (file != null) {
+      final thumb = await getVideoThumbnail(file.path);
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              NewPostScreen(filePath: file.path, isVideo: true, thumb: thumb),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
       bottomNavigationBar: NavigationBar(
+        onDestinationSelected: (index) {
+          if (index == 1) {
+            _pickMedia();
+          }
+        },
         backgroundColor: Colors.white,
         indicatorColor: Colors.indigoAccent.withOpacity(0.2),
         selectedIndex: 0,
@@ -47,8 +138,8 @@ class _HomeScreenState extends State<HomeScreen> {
             label: "",
           ),
           NavigationDestination(
-            icon: Icon(Icons.search, color: Colors.grey),
-            selectedIcon: Icon(Icons.search, color: Colors.grey),
+            icon: Icon(Icons.add, color: Colors.grey),
+            selectedIcon: Icon(Icons.add, color: Colors.grey),
             label: "",
           ),
           NavigationDestination(
