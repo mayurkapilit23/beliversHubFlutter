@@ -16,9 +16,10 @@ class UploadPoller {
 
   Stream<UploadStatusResponse> start() async* {
     while (true) {
-      final status = await UploadService.getUploadStatus(uploadId, userId);
+      final status = await UploadService.getUploadStatus(uploadId);
 
       yield status;
+
 
       if (status.status == "done" || status.status == "failed") {
         break;

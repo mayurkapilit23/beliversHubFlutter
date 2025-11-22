@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:believersHub/blocs/auth/auth_bloc.dart';
 import 'package:believersHub/blocs/auth/auth_event.dart';
 import 'package:believersHub/blocs/auth/auth_state.dart';
+import 'package:believersHub/services/SecureStorageService.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -50,7 +51,7 @@ class _SplashScreenState extends State<SplashScreen>
   // Checking secure storage for refresh token
   Future<void> _checkLoginStatus() async {
     await Future.delayed(const Duration(seconds: 2)); // small splash delay
-    String? refreshToken = await storage.read(key: "refreshToken");
+    String? refreshToken =await SecureStorageService.getRefreshToken();
     if (!mounted) return;
     if (refreshToken != null) {
       context.read<AuthBloc>().add(AuthLoggedInAutomatically(refreshToken));

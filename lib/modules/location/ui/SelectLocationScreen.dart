@@ -17,7 +17,6 @@ class SelectLocationScreen extends StatelessWidget {
     return BlocConsumer<LocationBloc, LocationState>(
       listener: (context, state) {
         if (state.selectedPlace != null) {
-          AppSnackbar.showSuccess(context, state.selectedPlace!.name);
           Navigator.pop(context, state.selectedPlace!);
         }
       },
@@ -37,7 +36,7 @@ class SelectLocationScreen extends StatelessWidget {
             ),
             title: Text(
               "Select location",
-              style: GoogleFonts.molengo(
+              style: GoogleFonts.inter(
                 fontSize: 18,
                 fontWeight: FontWeight.w600,
               ),
@@ -50,8 +49,7 @@ class SelectLocationScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: 10),
-
-                /// Search Field
+                // Search Field
                 TextField(
                   controller: searchCtrl,
                   style: GoogleFonts.molengo(fontSize: 16),
@@ -62,7 +60,7 @@ class SelectLocationScreen extends StatelessWidget {
                     fillColor: Colors.grey.shade200,
                     prefixIcon: Icon(Icons.search),
                     hintText: "Search",
-                    hintStyle: GoogleFonts.molengo(
+                    hintStyle: GoogleFonts.inter(
                       color: Colors.grey.shade500,
                     ),
                     border: OutlineInputBorder(
@@ -82,7 +80,7 @@ class SelectLocationScreen extends StatelessWidget {
                       separatorBuilder: (_, __) => SizedBox(height: 12),
                       itemBuilder: (context, index) {
                         final s = state.suggestions[index];
-
+                        print('Selected ${s.description}');
                         return locationTile(
                           s.description,
                           () => context.read<LocationBloc>().add(
@@ -159,18 +157,18 @@ Widget styledAddress(String address) {
     children: [
       Text(
         firstLine,
-        style:  GoogleFonts.molengo(
-          fontWeight: FontWeight.bold,
-          fontSize: 16,
+        style:  GoogleFonts.inter(
+          fontWeight: FontWeight.w600,
+          fontSize: 12,
           color: Colors.black,
         ),
       ),
       if (secondLine.isNotEmpty)
         Text(
           secondLine,
-          style:  GoogleFonts.molengo(
-            fontSize: 14,
-            color: Colors.grey,
+          style:  GoogleFonts.inter(
+            fontSize: 12,
+            color: Colors.grey.shade600,
           ),
         ),
     ],

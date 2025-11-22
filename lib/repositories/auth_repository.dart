@@ -1,3 +1,7 @@
+import 'dart:developer';
+
+import 'package:believersHub/services/SecureStorageService.dart';
+
 import '../api/dio_client.dart';
 import '../api/api_endpoints.dart';
 import '../api/api_response.dart';
@@ -15,16 +19,16 @@ class AuthRepository {
 
     if (response.success) {
       final data = response.data;
-      await storage.write(key: "accessToken", value: data["accessToken"]);
-      await storage.write(key: "refreshToken", value: data["refreshToken"]);
+      await SecureStorageService.saveAuthData(
+        accessToken: data["accessToken"],
+        refreshToken: data["refreshToken"],
+        user: data["user"],
+      );
     }
-
     return response;
   }
 
-  Future<ApiResponse> getMyProfile() {
-    return _client.get(ApiEndpoints.me);
-  }
+
 
   Future<ApiResponse> logout() async {
     String? refreshToken = await storage.read(key: "refreshToken");
