@@ -5,6 +5,7 @@ import 'package:believersHub/core/theme/app_light_theme.dart';
 import 'package:believersHub/features/theme/bloc/theme_bloc.dart';
 import 'package:believersHub/features/theme/bloc/theme_state.dart';
 import 'package:believersHub/features/uploadVideo/bloc/upload_video_bloc.dart';
+import 'package:believersHub/pre_loads.dart';
 import 'package:believersHub/repositories/auth_repository.dart';
 import 'package:believersHub/utils/global_loader.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,6 +18,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'LoginScreen.dart';
 import 'blocs/auth/auth_bloc.dart';
 import 'blocs/global_loading/global_loading_state.dart';
+import 'features/reels/ReelsRepository.dart';
+import 'features/reels/bloc/reels_bloc.dart';
 import 'features/uploadVideo/upload_video_repo/video_upload_repository.dart';
 import 'firebase_options.dart';
 import 'modules/location/bloc/location_bloc.dart';
@@ -24,6 +27,7 @@ import 'modules/location/bloc/location_bloc.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await PreLoads.preLoadData();
 
   runApp(const MyApp());
 }
@@ -40,6 +44,9 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (_) => ThemeBloc()),
         BlocProvider(create: (_) => LocationBloc()),
         BlocProvider(create: (_) => FileUploadBloc(videoUploadRepository: VideoUploadRepository())),
+        BlocProvider(
+          create: (_) => ReelsBloc(ReelsRepository()),
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {

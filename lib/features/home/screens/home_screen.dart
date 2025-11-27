@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:believersHub/blocs/auth/auth_bloc.dart' show AuthBloc;
 import 'package:believersHub/blocs/auth/auth_event.dart';
 import 'package:believersHub/features/NewPostScreen/NewPostScreen.dart';
+import 'package:believersHub/features/reels/Ui/reels_page.dart';
 import 'package:flutter/material.dart';
 import 'package:believersHub/core/theme/app_colors.dart';
 import 'package:believersHub/core/widgets/post_card.dart';
@@ -124,6 +125,8 @@ class _HomeScreenState extends State<HomeScreen> {
         onDestinationSelected: (index) {
           if (index == 1) {
             _pickMedia();
+          }if (index == 2) {
+            Navigator.push(context, MaterialPageRoute(builder: (builder)=>ReelsPage()));
           }
         },
         backgroundColor: Colors.white,

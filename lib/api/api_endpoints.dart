@@ -12,5 +12,9 @@ class ApiEndpoints {
   static const String completeVideoUpload = "/api/posts/complete-video-upload";
   static const discardUpload = "/api/posts/discard-upload";
   static  const uploadStatus = "/api/posts/upload-status";
+  static  const reels = "/reels";
+  static const watchTime = "/analytics/watch";
+  static const userInterests = "/user/interests";
+
 
 }

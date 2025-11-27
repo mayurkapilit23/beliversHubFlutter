@@ -2,15 +2,12 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:developer';
-import 'package:believersHub/api/api_endpoints.dart';
 import 'package:believersHub/features/uploadVideo/bloc/upload_video_bloc.dart' show FileUploadBloc;
 import 'package:believersHub/features/uploadVideo/bloc/upload_video_events.dart';
 import 'package:believersHub/features/uploadVideo/bloc/upload_video_states.dart';
 import 'package:believersHub/features/uploadVideo/model/video_upload_request.dart';
 import 'package:believersHub/features/uploadVideo/model/video_upload_response.dart';
 import 'package:believersHub/modules/location/ui/SelectLocationScreen.dart';
-import 'package:believersHub/modules/location/bloc/location_bloc.dart';
-import 'package:believersHub/modules/location/bloc/location_state.dart';
 import 'package:believersHub/features/uploadVideo/model/upload_status.dart';
 import 'package:believersHub/services/SecureStorageService.dart';
 import 'package:believersHub/utils/upload_poller.dart';
@@ -178,8 +175,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                       child: GestureDetector(
                         onTap: enabled
                             ? () {
-                                // Next action when enabled — use processed media
-                                // Add your create post flow here
+                                
                               }
                             : null,
                         child: Container(
@@ -192,7 +188,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
                           child: Text(
                             "Next",
                             style: GoogleFonts.inter(
-                              color: Colors.white.withOpacity(enabled ? 1 : 0.6),
+                              color: Colors.white.withValues(alpha: enabled ? 1 : 0.6),
                               fontSize: 16,
                               fontWeight: FontWeight.w600,
                             ),
@@ -271,7 +267,6 @@ class _NewPostScreenState extends State<NewPostScreen> {
                     ),
                   );
                 }
-
                 // ⭐ 4️⃣ INITIAL STATE → show local thumbnail version
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 25),
@@ -475,8 +470,8 @@ class _NewPostScreenState extends State<NewPostScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Select Thumbnail", style: GoogleFonts.inter(fontSize: 15)),
-                  const Icon(Icons.arrow_forward_ios, size: 18),
+                  Text("Thumbnail", style: GoogleFonts.inter(fontSize: 15)),
+                  // const Icon(Icons.arrow_forward_ios, size: 18),
                 ],
               ),
 
